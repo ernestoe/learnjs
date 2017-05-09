@@ -1,4 +1,5 @@
 describe('LearnJS', function() {
+
   it('can show a problem view',
     function() {
       learnjs.showView('#problem-1')
@@ -16,6 +17,21 @@ describe('LearnJS', function() {
       spyOn(learnjs, 'problemView')
       learnjs.showView('#problem-42')
       expect(learnjs.problemView).toHaveBeenCalledWith('42')
+    })
+
+  it('invokes the router when loaded',
+    function() {
+      spyOn(learnjs, 'showView')
+      learnjs.appOnReady()
+      expect(learnjs.showView).toHaveBeenCalledWith(window.location.hash)
+    })
+
+  it('subscribes to the hash change event',
+    function() {
+      learnjs.appOnReady()
+      spyOn(learnjs, 'showView')
+      $(window).trigger('hashchange')
+      expect(learnjs.showView).toHaveBeenCalledWith(window.location.hash)
     })
 
   describe('problem view',
