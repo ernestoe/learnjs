@@ -13,10 +13,20 @@ learnjs.problems = [
   }
 ]
 
+learnjs.template = function(name) {
+  return $('.templates .' + name).clone()
+}
 learnjs.applyObject = function(obj, elem) {
   for (var key in obj) {
     elem.find('[data-name="' + key + '"]').text(obj[key])
   }
+}
+
+learnjs.flashElement = function(elem, content) {
+  elem.fadeOut('fast', function() {
+    elem.html(content)
+    elem.fadeIn()
+  })
 }
 
 learnjs.problemView = function(data) {
@@ -33,9 +43,11 @@ learnjs.problemView = function(data) {
 
   function checkAnswerClick() {
     if (checkAnswer()) {
-      resultFlash.text('Correct!')
+      var correctFlash = learnjs.template('correct-flash')
+      correctFlash.find('a').attr('href', '#problem-' + (problemNumber + 1))
+      learnjs.flashElement(resultFlash, correctFlash)
     } else {
-      resultFlash.text('Incorrect!')
+      learnjs.flashElement(resultFlash, 'Incorrect!')
     }
     return false
   }
