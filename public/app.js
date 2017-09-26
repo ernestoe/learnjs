@@ -84,7 +84,7 @@ learnjs.problemView = function(data) {
       buttonItem.remove();
     });
   }
-  
+
   view.find('.check-btn').click(checkAnswerClick);
   view.find('.title').text('Problem #' + problemNumber);
   learnjs.applyObject(problemData, view);
@@ -114,4 +114,8 @@ learnjs.appOnReady = function() {
     learnjs.showView(window.location.hash);
   };
   learnjs.showView(window.location.hash);
+}
+
+function googleSignIn() {
+  console.log(arguments);
 }
